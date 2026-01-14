@@ -2,6 +2,7 @@ package tech.wetech.flexmodel.codegen;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import tech.wetech.flexmodel.model.SchemaObject;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -29,7 +30,8 @@ class CodeGenerationServiceTest extends AbstractIntegrationTest {
   void testGenerateCode() {
     List<TemplateInfo> templates = codeGenerationService.getTemplates();
     templates.forEach(template -> {
-      Path path = codeGenerationService.generateCode(SCHEMA_NAME, template.name(), new HashMap<>());
+      List<SchemaObject> models = sessionFactory.getModels(SCHEMA_NAME);
+      Path path = codeGenerationService.generateCode(SCHEMA_NAME, models, template.name(), new HashMap<>());
       log.info("testGenerateCode, template: {}, path: {}", template, path);
       Assertions.assertTrue(path.toFile().exists());
       Assertions.assertTrue(path.toFile().isDirectory());

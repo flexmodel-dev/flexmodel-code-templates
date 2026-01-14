@@ -28,7 +28,7 @@ public class AbstractIntegrationTest {
       .setDefaultDataSourceProvider(jdbcDataSourceProvider)
       .build();
     sessionFactory.loadScript("system", "import.idl");
-    codeGenerationService = new CodeGenerationService(sessionFactory);
+    codeGenerationService = new CodeGenerationService();
   }
 
   @AfterAll

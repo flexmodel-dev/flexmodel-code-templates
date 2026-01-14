@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import tech.wetech.flexmodel.JsonUtils;
 import tech.wetech.flexmodel.model.EntityDefinition;
 import tech.wetech.flexmodel.model.EnumDefinition;
+import tech.wetech.flexmodel.model.SchemaObject;
 import tech.wetech.flexmodel.session.SessionFactory;
 
 import java.io.File;
@@ -33,14 +34,11 @@ public class CodeGenerationService {
 
   private final GroovyClassLoader loader = new GroovyClassLoader();
 
-  private final SessionFactory sessionFactory;
-
   private final Map<String, TemplateInfo> templateInfoMap = new HashMap<>();
 
   private final Logger log = LoggerFactory.getLogger(CodeGenerationService.class);
 
-  public CodeGenerationService(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
+  public CodeGenerationService() {
     initializeFileSystem();
     loadTemplates();
     registerShutdownHook();
@@ -143,7 +141,7 @@ public class CodeGenerationService {
   /**
    * Generate code to temporary directory based on datasource and modelName, return root path.
    */
-  public Path generateCode(String datasourceName, String templateName, Map<String, Object> variables) {
+  public Path generateCode(String datasourceName, List<SchemaObject> models, String templateName, Map<String, Object> variables) {
     long startTime = System.currentTimeMillis();
     log.debug("Starting code generation - datasource: {}, template: {}", datasourceName, templateName);
 
@@ -152,7 +150,7 @@ public class CodeGenerationService {
       // Merge with default variables from .flexmodel/variables.json
       Map<String, Object> mergedVariables = mergeWithDefaultVariables(templateName, variables);
 
-      GenerationContext ctx = buildContext(datasourceName, mergedVariables);
+      GenerationContext ctx = buildContext(datasourceName, models, mergedVariables);
       java.nio.file.Path targetPath = Paths.get(System.getProperty("java.io.tmpdir"), "codegen", "" + System.currentTimeMillis());
       Path templateDir = getTemplatePath(templateName);
       outputFiles(loader, ctx, templateDir,
@@ -305,7 +303,7 @@ public class CodeGenerationService {
     return variables;
   }
 
-  private GenerationContext buildContext(String datasource, Map<String, Object> variables) {
+  private GenerationContext buildContext(String datasource, List<SchemaObject> models, Map<String, Object> variables) {
     String packageName = variables.getOrDefault("packageName", "com.example").toString();
 
     // Create a copy of variables to avoid modifying the original
@@ -317,7 +315,7 @@ public class CodeGenerationService {
     ctx.setVariables(contextVariables);
 
     // Load all models
-    sessionFactory.getModels(datasource).forEach(model -> {
+    models.forEach(model -> {
       if (model instanceof EntityDefinition entity) {
         ctx.getModelClassList().add(ModelClass.buildModelClass("^fs_", ctx.getPackageName(), datasource, entity));
       } else if (model instanceof EnumDefinition enumDef) {
