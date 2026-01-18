@@ -1,6 +1,6 @@
-import tech.wetech.flexmodel.codegen.AbstractGenerator
-import tech.wetech.flexmodel.codegen.GenerationContext
-import tech.wetech.flexmodel.codegen.ModelClass
+import dev.flexmodel.codegen.AbstractGenerator
+import dev.flexmodel.codegen.GenerationContext
+import dev.flexmodel.codegen.ModelClass
 
 import java.nio.file.Path
 
@@ -17,26 +17,26 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     def modelClass = context.modelClass
     def className = modelClass.shortClassName
     def variableName = className.toLowerCase()
-    
+
     // 导入语句
     out.println "import { ApiClient } from '../client/ApiClient.js';"
     out.println "import { PageResult } from './PageResult.js';"
     out.println "import { ${className} } from './${className}.js';"
     out.println ""
-    
+
     // 文档注释
     out.println "/**"
     out.println " * ${className} API - 直接访问${className}实体"
     out.println " */"
     out.println ""
-    
+
     // 类定义
     out.println "export class ${className}Api {"
     out.println "  private apiClient: ApiClient;"
     out.println "  private datasourceName: string;"
     out.println "  private modelName: string;"
     out.println ""
-    
+
     // 构造函数
     out.println "  constructor(apiClient: ApiClient, datasourceName: string, modelName: string) {"
     out.println "    this.apiClient = apiClient;"
@@ -44,13 +44,13 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     out.println "    this.modelName = modelName;"
     out.println "  }"
     out.println ""
-    
+
     // 辅助方法
     out.println "  private encode(str: string): string {"
     out.println "    return str.replace(/\\//g, '%2F');"
     out.println "  }"
     out.println ""
-    
+
     // 分页查询方法
     out.println "  /**"
     out.println "   * 获取所有${className}记录（分页）"
@@ -84,7 +84,7 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     out.println "    return new PageResult(data.total, ${variableName}s);"
     out.println "  }"
     out.println ""
-    
+
     // 直接返回列表方法
     out.println "  /**"
     out.println "   * 获取所有${className}记录（直接返回列表）"
@@ -99,7 +99,7 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     out.println "    return pageResult.getItems();"
     out.println "  }"
     out.println ""
-    
+
     // 简单查询方法
     out.println "  /**"
     out.println "   * 获取所有${className}记录（最简单的调用）"
@@ -108,7 +108,7 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     out.println "    return await this.list${className}sAsList();"
     out.println "  }"
     out.println ""
-    
+
     // 获取单个记录方法
     out.println "  /**"
     out.println "   * 根据ID获取${className}记录"
@@ -124,7 +124,7 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     out.println "    return ${className}.fromJSON(data);"
     out.println "  }"
     out.println ""
-    
+
     // 创建记录方法
     out.println "  /**"
     out.println "   * 创建新的${className}记录"
@@ -135,7 +135,7 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     out.println "    return ${className}.fromJSON(data);"
     out.println "  }"
     out.println ""
-    
+
     // 更新记录方法
     out.println "  /**"
     out.println "   * 更新${className}记录"
@@ -146,7 +146,7 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     out.println "    return ${className}.fromJSON(data);"
     out.println "  }"
     out.println ""
-    
+
     // 部分更新记录方法
     out.println "  /**"
     out.println "   * 部分更新${className}记录"
@@ -157,7 +157,7 @@ class TypeScriptSdkEntityApiGenerator extends AbstractGenerator {
     out.println "    return ${className}.fromJSON(data);"
     out.println "  }"
     out.println ""
-    
+
     // 删除记录方法
     out.println "  /**"
     out.println "   * 删除${className}记录"

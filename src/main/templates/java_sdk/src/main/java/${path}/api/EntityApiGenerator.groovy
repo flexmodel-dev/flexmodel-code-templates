@@ -1,6 +1,6 @@
-import tech.wetech.flexmodel.codegen.AbstractGenerator
-import tech.wetech.flexmodel.codegen.GenerationContext
-import tech.wetech.flexmodel.codegen.ModelClass
+import dev.flexmodel.codegen.AbstractGenerator
+import dev.flexmodel.codegen.GenerationContext
+import dev.flexmodel.codegen.ModelClass
 
 import java.nio.file.Path
 
@@ -17,7 +17,7 @@ class EntityApiGenerator extends AbstractGenerator {
     def modelClass = context.modelClass
     def className = modelClass.shortClassName
     def variableName = className.toLowerCase()
-    
+
     out.println "package ${modelClass.packageName};"
     out.println ""
     out.println "import com.fasterxml.jackson.core.type.TypeReference;"
@@ -40,7 +40,7 @@ class EntityApiGenerator extends AbstractGenerator {
     out.println "    this.modelName = modelName;"
     out.println "  }"
     out.println ""
-    
+
     // 列出所有记录的方法
     out.println "  /**"
     out.println "   * 获取所有${className}记录（分页）"
@@ -57,7 +57,7 @@ class EntityApiGenerator extends AbstractGenerator {
     out.println "    return apiClient.get(path, q, new TypeReference<PageResult<${className}>>() {});"
     out.println "  }"
     out.println ""
-    
+
     // 直接返回列表的方法
     out.println "  /**"
     out.println "   * 获取所有${className}记录（直接返回列表）"
@@ -67,7 +67,7 @@ class EntityApiGenerator extends AbstractGenerator {
     out.println "    return pageResult.getList();"
     out.println "  }"
     out.println ""
-    
+
     // 获取单个记录
     out.println "  /**"
     out.println "   * 根据ID获取${className}记录"
@@ -80,7 +80,7 @@ class EntityApiGenerator extends AbstractGenerator {
     out.println "    return apiClient.get(path, q, new TypeReference<${className}>() {});"
     out.println "  }"
     out.println ""
-    
+
     // 创建记录
     out.println "  /**"
     out.println "   * 创建新的${className}记录"
@@ -90,7 +90,7 @@ class EntityApiGenerator extends AbstractGenerator {
     out.println "    return apiClient.post(path, ${variableName}, new TypeReference<${className}>() {});"
     out.println "  }"
     out.println ""
-    
+
     // 更新记录
     out.println "  /**"
     out.println "   * 更新${className}记录"
@@ -100,7 +100,7 @@ class EntityApiGenerator extends AbstractGenerator {
     out.println "    return apiClient.put(path, ${variableName}, new TypeReference<${className}>() {});"
     out.println "  }"
     out.println ""
-    
+
     // 部分更新记录
     out.println "  /**"
     out.println "   * 部分更新${className}记录"
@@ -110,7 +110,7 @@ class EntityApiGenerator extends AbstractGenerator {
     out.println "    return apiClient.patch(path, ${variableName}, new TypeReference<${className}>() {});"
     out.println "  }"
     out.println ""
-    
+
     // 删除记录
     out.println "  /**"
     out.println "   * 删除${className}记录"
@@ -120,7 +120,7 @@ class EntityApiGenerator extends AbstractGenerator {
     out.println "    apiClient.delete(path);"
     out.println "  }"
     out.println ""
-    
+
     // 辅助方法
     out.println "  private String encode(String s) {"
     out.println "    return s.replace(\"/\", \"%2F\");"

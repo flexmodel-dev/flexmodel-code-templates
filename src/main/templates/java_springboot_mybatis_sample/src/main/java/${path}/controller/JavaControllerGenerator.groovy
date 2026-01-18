@@ -1,6 +1,6 @@
-import tech.wetech.flexmodel.codegen.AbstractGenerator
-import tech.wetech.flexmodel.codegen.GenerationContext
-import tech.wetech.flexmodel.codegen.ModelClass
+import dev.flexmodel.codegen.AbstractGenerator
+import dev.flexmodel.codegen.GenerationContext
+import dev.flexmodel.codegen.ModelClass
 
 import java.nio.file.Path
 

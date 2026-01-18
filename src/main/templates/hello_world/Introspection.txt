@@ -20,9 +20,9 @@
       "packageName": "com.example.model",
       "comment": "用户实体",
       "imports": [
-        "tech.wetech.flexmodel.annotation.ModelClass",
-        "tech.wetech.flexmodel.annotation.ModelField",
-        "tech.wetech.flexmodel.annotation.ModelRelation"
+        "dev.flexmodel.annotation.ModelClass",
+        "dev.flexmodel.annotation.ModelField",
+        "dev.flexmodel.annotation.ModelRelation"
       ],
       "original": {"name": "user"},
       "allFields": [
@@ -48,7 +48,7 @@
 模板变量使用示例（Groovy 生成器片段）：
 
 ```groovy
-import tech.wetech.flexmodel.codegen.GenerationContext
+import dev.flexmodel.codegen.GenerationContext
 
 void write(PrintWriter out, GenerationContext context) {
   // 基本变量

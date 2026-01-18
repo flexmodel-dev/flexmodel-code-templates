@@ -5,7 +5,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>tech.wetech.flexmodel</groupId>
+  <groupId>dev.flexmodel</groupId>
   <artifactId>flexmodel-code-templates</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <properties>
@@ -27,7 +27,7 @@
   </distributionManagement>
   <dependencies>
     <dependency>
-      <groupId>tech.wetech.flexmodel</groupId>
+      <groupId>dev.flexmodel</groupId>
       <artifactId>flexmodel-codegen</artifactId>
       <version>${flexmodel.version}</version>
       <optional>true</optional>

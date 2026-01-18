@@ -1,8 +1,9 @@
-package tech.wetech.flexmodel.codegen;
+package dev.flexmodel.codegen;
 
+import dev.flexmodel.codegen.TemplateInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import tech.wetech.flexmodel.model.SchemaObject;
+import dev.flexmodel.model.SchemaObject;
 
 import java.nio.file.Path;
 import java.util.HashMap;

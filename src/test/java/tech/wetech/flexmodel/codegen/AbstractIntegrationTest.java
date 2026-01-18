@@ -1,13 +1,14 @@
-package tech.wetech.flexmodel.codegen;
+package dev.flexmodel.codegen;
 
 
 import com.zaxxer.hikari.HikariDataSource;
+import dev.flexmodel.codegen.CodeGenerationService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tech.wetech.flexmodel.session.SessionFactory;
-import tech.wetech.flexmodel.sql.JdbcDataSourceProvider;
+import dev.flexmodel.session.SessionFactory;
+import dev.flexmodel.sql.JdbcDataSourceProvider;
 
 /**
  * @author cjbi

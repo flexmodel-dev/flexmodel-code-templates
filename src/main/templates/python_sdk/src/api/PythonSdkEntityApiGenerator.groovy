@@ -1,6 +1,6 @@
-import tech.wetech.flexmodel.codegen.AbstractGenerator
-import tech.wetech.flexmodel.codegen.GenerationContext
-import tech.wetech.flexmodel.codegen.ModelClass
+import dev.flexmodel.codegen.AbstractGenerator
+import dev.flexmodel.codegen.GenerationContext
+import dev.flexmodel.codegen.ModelClass
 
 import java.nio.file.Path
 
@@ -17,7 +17,7 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     def modelClass = context.modelClass
     def className = modelClass.shortClassName
     def variableName = className.toLowerCase()
-    
+
     // 导入语句
     out.println '"""'
     out.println "${className} API - 直接访问${className}实体"
@@ -28,12 +28,12 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "from ..api.page_result import PageResult"
     out.println "from .${variableName} import ${className}"
     out.println ""
-    
+
     // 类定义
     out.println "class ${className}Api:"
     out.println "    \"\"\"${className} API - 直接访问${className}实体\"\"\""
     out.println ""
-    
+
     // 构造函数
     out.println "    def __init__(self, api_client: ApiClient, datasource_name: str, model_name: str):"
     out.println "        \"\"\""
@@ -43,13 +43,13 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "        self.datasource_name = datasource_name"
     out.println "        self.model_name = model_name"
     out.println ""
-    
+
     // 辅助方法
     out.println "    def _encode(self, text: str) -> str:"
     out.println "        \"\"\"URL编码\"\"\""
     out.println "        return text.replace('/', '%2F')"
     out.println ""
-    
+
     // 分页查询方法
     out.println "    def list_${variableName}s("
     out.println "        self,"
@@ -80,7 +80,7 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "        ${variableName}s = [${className}.from_dict(item) for item in data['list']]"
     out.println "        return PageResult(data['total'], ${variableName}s)"
     out.println ""
-    
+
     // 直接返回列表方法
     out.println "    def list_${variableName}s_as_list("
     out.println "        self,"
@@ -99,7 +99,7 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "        )"
     out.println "        return page_result.get_items()"
     out.println ""
-    
+
     // 简单查询方法
     out.println "    def list_${variableName}s_simple(self) -> List[${className}]:"
     out.println "        \"\"\""
@@ -107,7 +107,7 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "        \"\"\""
     out.println "        return self.list_${variableName}s_as_list()"
     out.println ""
-    
+
     // 获取单个记录方法
     out.println "    def get_${variableName}("
     out.println "        self,"
@@ -126,7 +126,7 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "        data = self.api_client.get(path, params)"
     out.println "        return ${className}.from_dict(data)"
     out.println ""
-    
+
     // 创建记录方法
     out.println "    def create_${variableName}(self, ${variableName}: ${className}) -> ${className}:"
     out.println "        \"\"\""
@@ -136,7 +136,7 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "        data = self.api_client.post(path, ${variableName}.to_dict())"
     out.println "        return ${className}.from_dict(data)"
     out.println ""
-    
+
     // 更新记录方法
     out.println "    def update_${variableName}(self, ${variableName}_id: str, ${variableName}: ${className}) -> ${className}:"
     out.println "        \"\"\""
@@ -146,7 +146,7 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "        data = self.api_client.put(path, ${variableName}.to_dict())"
     out.println "        return ${className}.from_dict(data)"
     out.println ""
-    
+
     // 部分更新记录方法
     out.println "    def patch_${variableName}(self, ${variableName}_id: str, ${variableName}: ${className}) -> ${className}:"
     out.println "        \"\"\""
@@ -156,7 +156,7 @@ class PythonSdkEntityApiGenerator extends AbstractGenerator {
     out.println "        data = self.api_client.patch(path, ${variableName}.to_dict())"
     out.println "        return ${className}.from_dict(data)"
     out.println ""
-    
+
     // 删除记录方法
     out.println "    def delete_${variableName}(self, ${variableName}_id: str) -> None:"
     out.println "        \"\"\""

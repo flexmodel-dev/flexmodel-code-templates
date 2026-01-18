@@ -1,6 +1,6 @@
-import tech.wetech.flexmodel.codegen.AbstractGenerator
-import tech.wetech.flexmodel.codegen.GenerationContext
-import tech.wetech.flexmodel.codegen.ModelClass
+import dev.flexmodel.codegen.AbstractGenerator
+import dev.flexmodel.codegen.GenerationContext
+import dev.flexmodel.codegen.ModelClass
 
 import java.nio.file.Path
 
@@ -16,17 +16,17 @@ class JavaScriptSdkEntityGenerator extends AbstractGenerator {
   void writeModel(PrintWriter out, GenerationContext context) {
     def modelClass = context.modelClass
     def className = modelClass.shortClassName
-    
+
     // 文档注释
     out.println "/**"
     out.println " * ${className}实体类"
     out.println " */"
     out.println ""
-    
+
     // 类定义
     out.println "export class ${className} {"
     out.println "  constructor(data = {}) {"
-    
+
     // 字段初始化
     modelClass.allFields.each { field ->
       def fieldName = field.variableName
@@ -34,7 +34,7 @@ class JavaScriptSdkEntityGenerator extends AbstractGenerator {
     }
     out.println "  }"
     out.println ""
-    
+
     // Getter方法
     modelClass.allFields.each { field ->
       def fieldName = field.variableName
@@ -44,7 +44,7 @@ class JavaScriptSdkEntityGenerator extends AbstractGenerator {
       out.println "  }"
       out.println ""
     }
-    
+
     // Setter方法
     modelClass.allFields.each { field ->
       def fieldName = field.variableName
@@ -54,7 +54,7 @@ class JavaScriptSdkEntityGenerator extends AbstractGenerator {
       out.println "  }"
       out.println ""
     }
-    
+
     // 转换为JSON方法
     out.println "  /**"
     out.println "   * 转换为JSON对象"
@@ -72,7 +72,7 @@ class JavaScriptSdkEntityGenerator extends AbstractGenerator {
     out.println "    };"
     out.println "  }"
     out.println ""
-    
+
     // 从JSON创建实例的静态方法
     out.println "  /**"
     out.println "   * 从JSON对象创建${className}实例"

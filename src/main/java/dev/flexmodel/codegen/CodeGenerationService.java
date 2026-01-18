@@ -1,13 +1,12 @@
-package tech.wetech.flexmodel.codegen;
+package dev.flexmodel.codegen;
 
 import groovy.lang.GroovyClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tech.wetech.flexmodel.JsonUtils;
-import tech.wetech.flexmodel.model.EntityDefinition;
-import tech.wetech.flexmodel.model.EnumDefinition;
-import tech.wetech.flexmodel.model.SchemaObject;
-import tech.wetech.flexmodel.session.SessionFactory;
+import dev.flexmodel.JsonUtils;
+import dev.flexmodel.model.EntityDefinition;
+import dev.flexmodel.model.EnumDefinition;
+import dev.flexmodel.model.SchemaObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static tech.wetech.flexmodel.sql.StringHelper.simpleRenderTemplate;
+import static dev.flexmodel.sql.StringHelper.simpleRenderTemplate;
 
 /**
  * @author cjbi

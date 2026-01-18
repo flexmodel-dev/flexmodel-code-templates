@@ -1,6 +1,6 @@
-import tech.wetech.flexmodel.codegen.AbstractGenerator
-import tech.wetech.flexmodel.codegen.GenerationContext
-import tech.wetech.flexmodel.codegen.ModelClass
+import dev.flexmodel.codegen.AbstractGenerator
+import dev.flexmodel.codegen.GenerationContext
+import dev.flexmodel.codegen.ModelClass
 
 import java.nio.file.Path
 
@@ -16,7 +16,7 @@ class PythonSdkEntityGenerator extends AbstractGenerator {
   void writeModel(PrintWriter out, GenerationContext context) {
     def modelClass = context.modelClass
     def className = modelClass.shortClassName
-    
+
     // 导入语句
     out.println '"""'
     out.println "${className}实体类"
@@ -25,12 +25,12 @@ class PythonSdkEntityGenerator extends AbstractGenerator {
     out.println "from typing import Optional"
     out.println "from pydantic import BaseModel, Field"
     out.println ""
-    
+
     // 类定义
     out.println "class ${className}(BaseModel):"
     out.println "    \"\"\"${className}实体类\"\"\""
     out.println ""
-    
+
     // 字段定义
     modelClass.allFields.each { field ->
       def fieldName = field.variableName
@@ -39,7 +39,7 @@ class PythonSdkEntityGenerator extends AbstractGenerator {
       out.println "    ${fieldName}: Optional[${fieldType}] = Field(None, description=\"${fieldDescription}\")"
     }
     out.println ""
-    
+
     // Pydantic配置
     out.println "    class Config:"
     out.println "        \"\"\"Pydantic配置\"\"\""
@@ -47,26 +47,26 @@ class PythonSdkEntityGenerator extends AbstractGenerator {
     out.println "            # 可以在这里添加自定义编码器"
     out.println "        }"
     out.println ""
-    
+
     // Getter和Setter方法
     modelClass.allFields.each { field ->
       def fieldName = field.variableName
       def fieldType = getPythonType(field.shortTypeName)
       def capitalizedName = fieldName.capitalize()
-      
+
       // Getter方法
       out.println "    def get_${fieldName}(self) -> Optional[${fieldType}]:"
       out.println "        \"\"\"获取${fieldName}\"\"\""
       out.println "        return self.${fieldName}"
       out.println ""
-      
+
       // Setter方法
       out.println "    def set_${fieldName}(self, ${fieldName}: Optional[${fieldType}]) -> None:"
       out.println "        \"\"\"设置${fieldName}\"\"\""
       out.println "        self.${fieldName} = ${fieldName}"
       out.println ""
     }
-    
+
     // 类方法
     out.println "    @classmethod"
     out.println "    def from_dict(cls, data: dict) -> '${className}':"
@@ -77,7 +77,7 @@ class PythonSdkEntityGenerator extends AbstractGenerator {
     out.println "        \"\"\"转换为字典\"\"\""
     out.println "        return self.dict()"
   }
-  
+
   /**
    * 将Java类型转换为Python类型
    */

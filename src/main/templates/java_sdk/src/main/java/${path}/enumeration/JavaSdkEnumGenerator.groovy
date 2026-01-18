@@ -1,7 +1,7 @@
 
 import groovy.util.logging.Log
-import tech.wetech.flexmodel.codegen.AbstractGenerator
-import tech.wetech.flexmodel.codegen.GenerationContext
+import dev.flexmodel.codegen.AbstractGenerator
+import dev.flexmodel.codegen.GenerationContext
 
 import java.nio.file.Path
 
